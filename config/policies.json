@@ -34,7 +34,54 @@
           "protectedResourceMetadataUrl": "https://mcp.example.com/.well-known/oauth-protected-resource",
           "authMode": "user-oauth",
           "scopes": [],
-          "clientRegistration": { "mode": "auto" }
+          "clientRegistration": {
+            "mode": "auto"
+          }
+        }
+      }
+    },
+    {
+      "name": "mcp-capability-filter-example",
+      "policyType": "mcp-capability-filter-inbound",
+      "handler": {
+        "module": "$import(@zuplo/runtime/mcp-gateway)",
+        "export": "McpCapabilityFilterInboundPolicy",
+        "options": {
+          "tools": [
+            {
+              "name": "list_items",
+              "public": true
+            },
+            {
+              "name": "search_items",
+              "roles": [
+                "viewer",
+                "editor",
+                "admin"
+              ]
+            },
+            {
+              "name": "update_item",
+              "roles": [
+                "editor",
+                "admin"
+              ]
+            },
+            {
+              "name": "delete_item",
+              "roles": [
+                "admin"
+              ],
+              "groups": [
+                "dummy-ops-team"
+              ]
+            }
+          ],
+          "accessControl": {
+            "mode": "rolesAndGroups",
+            "roleClaim": "roles",
+            "groupClaim": "groups"
+          }
         }
       }
     }
