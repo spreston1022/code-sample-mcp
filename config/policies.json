@@ -1,3 +1,42 @@
 {
-  "policies": []
+  "policies": [
+    {
+      "name": "oidc-managed-oauth",
+      "policyType": "mcp-oauth-inbound",
+      "handler": {
+        "module": "$import(@zuplo/runtime/mcp-gateway)",
+        "export": "McpOAuthInboundPolicy",
+        "options": {
+          "oidc": {
+            "issuer": "https://idp.example.com",
+            "jwksUrl": "https://idp.example.com/.well-known/jwks.json",
+            "audience": "dummy-mcp-gateway-audience"
+          },
+          "browserLogin": {
+            "url": "https://idp.example.com/oauth2/authorize",
+            "tokenUrl": "https://idp.example.com/oauth2/token",
+            "clientId": "$env(OIDC_CLIENT_ID)",
+            "clientSecret": "$env(OIDC_CLIENT_SECRET)",
+            "scope": "openid profile email"
+          }
+        }
+      }
+    },
+    {
+      "name": "mcp-token-exchange-example",
+      "policyType": "mcp-token-exchange-inbound",
+      "handler": {
+        "module": "$import(@zuplo/runtime/mcp-gateway)",
+        "export": "McpTokenExchangeInboundPolicy",
+        "options": {
+          "displayName": "Example MCP",
+          "summary": "Dummy example MCP upstream, per-user OAuth.",
+          "protectedResourceMetadataUrl": "https://mcp.example.com/.well-known/oauth-protected-resource",
+          "authMode": "user-oauth",
+          "scopes": [],
+          "clientRegistration": { "mode": "auto" }
+        }
+      }
+    }
+  ]
 }
