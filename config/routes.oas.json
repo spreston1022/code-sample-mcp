@@ -4,5 +4,24 @@
     "version": "1.0.0",
     "title": "My Zuplo API"
   },
-  "paths": {}
+  "paths": {
+    "/mcp/example": {
+      "get,post": {
+        "operationId": "example-mcp-server",
+        "x-zuplo-route": {
+          "corsPolicy": "none",
+          "handler": {
+            "module": "$import(@zuplo/runtime/mcp-gateway)",
+            "export": "McpProxyHandler",
+            "options": {
+              "rewritePattern": "https://mcp.example.com/mcp"
+            }
+          },
+          "policies": {
+            "inbound": ["oidc-managed-oauth", "mcp-token-exchange-example"]
+          }
+        }
+      }
+    }
+  }
 }
