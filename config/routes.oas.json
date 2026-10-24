@@ -18,7 +18,11 @@
             }
           },
           "policies": {
-            "inbound": ["oidc-managed-oauth", "mcp-token-exchange-example"]
+            "inbound": [
+              "oidc-managed-oauth",
+              "mcp-token-exchange-example",
+              "mcp-capability-filter-example"
+            ]
           }
         }
       }
