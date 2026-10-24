@@ -7,6 +7,8 @@
   "paths": {
     "/mcp/example": {
       "get,post": {
+        "summary": "Example MCP Server",
+        "description": "Proxies MCP traffic to the example upstream MCP server, secured with OAuth and role-based tool access.",
         "operationId": "example-mcp-server",
         "x-zuplo-route": {
           "corsPolicy": "none",
